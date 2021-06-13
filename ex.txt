@@ -1,0 +1,29 @@
+if(!flag){
+	int x = 7;
+	string s = "haloooo";
+}
+
+for(int y=5; y<10; y++){
+	x = y;
+}
+
+while(x>4){
+	x--;
+}
+
+string y="hshihdi";
+boolean falg;
+
+void printFib(int n){
+	x = "liczyby fib";
+	if(n>=0 && n>9 && n<11){
+		n = !5;
+	}else if(n==0){
+		n=6;
+	}else{
+		n="dupa";
+	}
+	return x;
+}
+
+printFib(6);
