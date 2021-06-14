@@ -23,12 +23,12 @@ while(-x>4){
 }
 
 string y="hshihdi";
+boolean falg = true;
 
 void printFib(int n, int b){
 	x = "liczyby fib";
 	if(n>=0 && n>9 && n<11){
 		printFib(6, 9);
-		n = !5;
 	}else if(n==0){
 		n=6;
 	}else{

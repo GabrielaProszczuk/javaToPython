@@ -10,73 +10,53 @@ statement: identifierDec SEMICOLON
 	| methodDec
 	| methodCall SEMICOLON
 	| operacjeMatematyczne;
-	
-operacjeMatematyczne: identifierDec
-	| incrementOperation SEMICOLON
-	| decrementOperation SEMICOLON;
 
 identifierDec:
-	(identifierType)? ID (ASSIGN identifierInitializer)? ;
+	(identifierType)? ID (ASSIGN identifierInitializer)?;
+identifierInitializer: minusOperator? expression;
 
-identifierInitializer:
-	minusOperator? expression;
 
 statement_condition : statement_if
 	| statement_elseif
 	| statement_else;
-
-
 statement_if: 	IF L_PAREN condition R_PAREN block;
-
 statement_elseif: ELSEIF L_PAREN condition R_PAREN block;
-
 statement_else: ELSE block;
-
 block: 	L_BRACE statement* R_BRACE;
+condition: expression compare expression
+	| condition ((OR|AND) condition)
+	| NOT condition
+	| NOT expression
+	| NOT value
+	| value
+	| minusOperator condition;
+minusOperator: MINUS;
 
+statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON incr_for R_PAREN block;
+expression_for: expression compare expression;
+incr_for: ID INCR;
 compare: GT	
 	| LT	
 	| EQ			
 	| GT_EQ		
 	| LT_EQ		
 	| NEQ;
-
-
-
-
-condition: expression compare expression
-	| condition ((OR|AND) condition)+
-	| NOT condition
-	| NOT expression
-	| NOT value
-	| value
-	| minusOperator condition;
-
-statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON incr_for R_PAREN block;
-
-expression_for: expression compare expression;
-incr_for: ID INCR;
-
-statement_while: WHILE L_PAREN condition R_PAREN block;
-statement_return: RETURN value;
-
 assignment: (identifierType)? ID ASSIGN identifierInitializer ;
 
+statement_while: WHILE L_PAREN condition R_PAREN block;
+
+statement_return: RETURN value;
 
 methodDec: 	methodType ID L_PAREN params? R_PAREN block;
-
 params:		identifierType ID (COMMA identifierType ID)*;
 
 methodCall: 	ID L_PAREN expression (COMMA expression)* R_PAREN;
 
-	
-minusOperator: MINUS;
-
-oneArgumentExpression: incrementOperation | decrementOperation | notOperation;
-twoArgumentExpression: OR | AND | MUL | DIV | PLUS | MOD | GT | LT | EQ | GT_EQ | LT_EQ;
+operacjeMatematyczne: identifierDec
+	| incrementOperation SEMICOLON
+	| decrementOperation SEMICOLON;
 incrementOperation: INCR ID | ID INCR;
 decrementOperation: DECR ID | ID DECR;
-notOperation: NOT ID;
 
 expression: L_PAREN expression R_PAREN
 	| INT_VAL
@@ -90,7 +70,11 @@ expression: L_PAREN expression R_PAREN
 	| methodCall
 	| expression (twoArgumentExpression|MINUS) expression ((twoArgumentExpression|MINUS) expression)*;
 
+oneArgumentExpression: incrementOperation | decrementOperation | notOperation;
 
+twoArgumentExpression: OR | AND | MUL | DIV | PLUS | MOD | GT | LT | EQ | GT_EQ | LT_EQ;
+
+notOperation: NOT ID;
 
 value: 	INT_VAL 
 	| FLOAT_VAL 
@@ -112,24 +96,24 @@ methodType:	BOOLEAN
 		| STRING
 		| CHAR;
 
-WHITESPACE:         (' ' | '\t' | '\r' | '\n') -> skip ;
+WHITESPACE	:   (' ' | '\t' | '\r' | '\n') -> skip ;
 PLUS		:	'+';
 MINUS		:	'-';
-MUL		:	'*';
-DIV		:	'/';
-MOD		:	'%';
+MUL			:	'*';
+DIV			:	'/';
+MOD			:	'%';
 ASSIGN		:	'=';
 
-GT		:	'>';
-LT		:	'<';
-EQ		:	'==';
+GT			:	'>';
+LT			:	'<';
+EQ			:	'==';
 GT_EQ		:	'>=';
 LT_EQ		:	'<=';
-NEQ		:	'!=';
+NEQ			:	'!=';
 
-AND		:	'&&';
-OR		:	'||';
-NOT		:	'!';
+AND			:	'&&';
+OR			:	'||';
+NOT			:	'!';
 
 INCR		:	'++';
 DECR		:	'--';
@@ -141,18 +125,15 @@ R_BRACKET	:	']';
 L_BRACE		:	'{';
 R_BRACE		:	'}';
 
-
 SEMICOLON	:	';';
 COMMA		:	',';
-DOT		:	'.';
+DOT			:	'.';
 QUOTE1		:	'\''; 
 QUOTE2		:	'"';
 
-
-
-FOR		:	'for';
+FOR			:	'for';
 WHILE		:	'while';
-IF		: 	'if';
+IF			: 	'if';
 ELSE		:	'else';
 ELSEIF		:	'else if';
 BREAK		:	'break';
@@ -160,18 +141,18 @@ FUNCTION	: 	'function';
 RETURN		: 	'return';
 
 VOID		: 	'void';
-INT		:       'int';
+INT			:	'int';
 FLOAT		:	'float';
 CHAR		:	'char';
 STRING		: 	'string';
 BOOLEAN		:	'boolean';
 
-TRUE		:    	'true';
-FALSE		:   	'false';
+TRUE		:	'true';
+FALSE		:	'false';
 
-ID		:	[a-zA-Z] [a-zA-Z0-9_]*;
+ID			:	[a-zA-Z] [a-zA-Z0-9_]*;
 INT_VAL		: 	[0-9]+;
 FLOAT_VAL	:	[0-9]+'.'[0-9]+;
-STRING_VAL :  	 '"' (~["\\r\n])* '"';
-CHAR_VAL	:	  '\'' (~['\\r\n]) '\'';
-BOOLEAN_VAL : (TRUE|FALSE);
+STRING_VAL 	:	'"' (~["\\r\n])* '"';
+CHAR_VAL	:	'\'' (~['\\r\n]) '\'';
+BOOLEAN_VAL :	(TRUE|FALSE);

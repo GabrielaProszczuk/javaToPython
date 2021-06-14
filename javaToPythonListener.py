@@ -26,15 +26,6 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by javaToPythonParser#operacjeMatematyczne.
-    def enterOperacjeMatematyczne(self, ctx:javaToPythonParser.OperacjeMatematyczneContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#operacjeMatematyczne.
-    def exitOperacjeMatematyczne(self, ctx:javaToPythonParser.OperacjeMatematyczneContext):
-        pass
-
-
     # Enter a parse tree produced by javaToPythonParser#identifierDec.
     def enterIdentifierDec(self, ctx:javaToPythonParser.IdentifierDecContext):
         pass
@@ -98,21 +89,21 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by javaToPythonParser#compare.
-    def enterCompare(self, ctx:javaToPythonParser.CompareContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#compare.
-    def exitCompare(self, ctx:javaToPythonParser.CompareContext):
-        pass
-
-
     # Enter a parse tree produced by javaToPythonParser#condition.
     def enterCondition(self, ctx:javaToPythonParser.ConditionContext):
         pass
 
     # Exit a parse tree produced by javaToPythonParser#condition.
     def exitCondition(self, ctx:javaToPythonParser.ConditionContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#minusOperator.
+    def enterMinusOperator(self, ctx:javaToPythonParser.MinusOperatorContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#minusOperator.
+    def exitMinusOperator(self, ctx:javaToPythonParser.MinusOperatorContext):
         pass
 
 
@@ -143,6 +134,24 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by javaToPythonParser#compare.
+    def enterCompare(self, ctx:javaToPythonParser.CompareContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#compare.
+    def exitCompare(self, ctx:javaToPythonParser.CompareContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#assignment.
+    def enterAssignment(self, ctx:javaToPythonParser.AssignmentContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#assignment.
+    def exitAssignment(self, ctx:javaToPythonParser.AssignmentContext):
+        pass
+
+
     # Enter a parse tree produced by javaToPythonParser#statement_while.
     def enterStatement_while(self, ctx:javaToPythonParser.Statement_whileContext):
         pass
@@ -158,15 +167,6 @@ class javaToPythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by javaToPythonParser#statement_return.
     def exitStatement_return(self, ctx:javaToPythonParser.Statement_returnContext):
-        pass
-
-
-    # Enter a parse tree produced by javaToPythonParser#assignment.
-    def enterAssignment(self, ctx:javaToPythonParser.AssignmentContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#assignment.
-    def exitAssignment(self, ctx:javaToPythonParser.AssignmentContext):
         pass
 
 
@@ -197,30 +197,12 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by javaToPythonParser#minusOperator.
-    def enterMinusOperator(self, ctx:javaToPythonParser.MinusOperatorContext):
+    # Enter a parse tree produced by javaToPythonParser#operacjeMatematyczne.
+    def enterOperacjeMatematyczne(self, ctx:javaToPythonParser.OperacjeMatematyczneContext):
         pass
 
-    # Exit a parse tree produced by javaToPythonParser#minusOperator.
-    def exitMinusOperator(self, ctx:javaToPythonParser.MinusOperatorContext):
-        pass
-
-
-    # Enter a parse tree produced by javaToPythonParser#oneArgumentExpression.
-    def enterOneArgumentExpression(self, ctx:javaToPythonParser.OneArgumentExpressionContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#oneArgumentExpression.
-    def exitOneArgumentExpression(self, ctx:javaToPythonParser.OneArgumentExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by javaToPythonParser#twoArgumentExpression.
-    def enterTwoArgumentExpression(self, ctx:javaToPythonParser.TwoArgumentExpressionContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#twoArgumentExpression.
-    def exitTwoArgumentExpression(self, ctx:javaToPythonParser.TwoArgumentExpressionContext):
+    # Exit a parse tree produced by javaToPythonParser#operacjeMatematyczne.
+    def exitOperacjeMatematyczne(self, ctx:javaToPythonParser.OperacjeMatematyczneContext):
         pass
 
 
@@ -242,21 +224,39 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by javaToPythonParser#notOperation.
-    def enterNotOperation(self, ctx:javaToPythonParser.NotOperationContext):
-        pass
-
-    # Exit a parse tree produced by javaToPythonParser#notOperation.
-    def exitNotOperation(self, ctx:javaToPythonParser.NotOperationContext):
-        pass
-
-
     # Enter a parse tree produced by javaToPythonParser#expression.
     def enterExpression(self, ctx:javaToPythonParser.ExpressionContext):
         pass
 
     # Exit a parse tree produced by javaToPythonParser#expression.
     def exitExpression(self, ctx:javaToPythonParser.ExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#oneArgumentExpression.
+    def enterOneArgumentExpression(self, ctx:javaToPythonParser.OneArgumentExpressionContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#oneArgumentExpression.
+    def exitOneArgumentExpression(self, ctx:javaToPythonParser.OneArgumentExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#twoArgumentExpression.
+    def enterTwoArgumentExpression(self, ctx:javaToPythonParser.TwoArgumentExpressionContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#twoArgumentExpression.
+    def exitTwoArgumentExpression(self, ctx:javaToPythonParser.TwoArgumentExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#notOperation.
+    def enterNotOperation(self, ctx:javaToPythonParser.NotOperationContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#notOperation.
+    def exitNotOperation(self, ctx:javaToPythonParser.NotOperationContext):
         pass
 
 

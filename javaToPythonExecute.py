@@ -10,6 +10,11 @@ class javaToPythonListener(ParseTreeListener):
     indents = 0
     convertedString = ""
 
+    def saveToFile(self):
+        f = open("ex.txt", "a")
+        f.write(self.convertedString)
+        f.close()
+
     def getTabs(self, level):
         tabs = ""
         for i in range(level):
@@ -17,12 +22,12 @@ class javaToPythonListener(ParseTreeListener):
         return tabs
 
     def convertIfStatement(self, ctx, level):
-        condition = ctx.statement_if().condition().getText()
+        condition = ctx.condition().getText()
         self.convertedString += self.getTabs(level) + "if (" + condition + "):\n"
         return level + 1
 
     def convertIfElseStatement(self, ctx, level):
-        condition = ctx.statement_elseif().condition().getText()
+        condition = ctx.condition().getText()
         self.convertedString += self.getTabs(level) + "elif (" + condition + "):\n"
         return level + 1
 
@@ -34,17 +39,15 @@ class javaToPythonListener(ParseTreeListener):
         childCtx = ctx.getChild(0)
         childCtxRuleName = str(javaToPythonParser.ruleNames[childCtx.getRuleIndex()])
         if(childCtxRuleName == "statement_if"):
-            level = self.convertIfStatement(ctx, level)
+            level = self.convertIfStatement(childCtx, level)
         elif(childCtxRuleName == "statement_elseif"):
-            level = self.convertIfElseStatement(ctx, level)
+            level = self.convertIfElseStatement(childCtx, level)
         elif(childCtxRuleName == "statement_else"):
-            level = self.convertElseStatement(ctx, level)
+            level = self.convertElseStatement(childCtx, level)
         return level
 
 
     def convertMethodDeclaration(self, ctx, level):
-        # Extracting method type
-        methodType = ctx.methodType().getText()
         # Extracting method name
         methodName = ctx.ID().getText()
 
@@ -58,12 +61,10 @@ class javaToPythonListener(ParseTreeListener):
         # Create "type methodName("
         self.convertedString += "def " + methodName + "(" + params + "):\n"
 
-        # IncreASE level of indendation
+        # Increase level of indendation
         return level + 1
 
-
     def convertForStatement(self, ctx, level):
-        print(ctx.getText())
         letter = ctx.assignment().ID().getText()
         startNumber = ctx.assignment().identifierInitializer().getText()
         compare = ctx.expression_for().compare().getText()
@@ -85,13 +86,12 @@ class javaToPythonListener(ParseTreeListener):
         forConditionString = letter + " in range (" + str(rangeNumbers) + ")"
         self.convertedString += self.getTabs(level) + "for " + forConditionString + ":\n"
 
-        # IncreASE level of indendation
+        # Increase level of indendation
         return level + 1
 
     def convertWhileStatement(self, ctx, level):
         self.convertedString += self.getTabs(level) + "while " + "(" + ctx.condition().getText() + "):\n"
         return level + 1
-
 
     def convertIdentifierDec(self, ctx, level):
         letter = ctx.ID().getText()
@@ -111,9 +111,6 @@ class javaToPythonListener(ParseTreeListener):
         self.convertedString += self.getTabs(level) + letter + " -= 1\n"
         return level
 
-
-
-    # methodCall: 	ID L_PAREN expression (COMMA expression)* R_PAREN;
     def convertMethodCall(self, ctx, level):
         args = ctx.expression()[0].getText()
         for i in range (1, len(ctx.expression())):
@@ -126,9 +123,7 @@ class javaToPythonListener(ParseTreeListener):
 
         # for i in range(indents):
         #     print("    ", end = '')
-
         # print(ruleName + ": " + ctx.getText())
-
         if (ruleName == "statement_condition"):
             level = self.convertConditionStatement(ctx, level)
 
@@ -144,18 +139,11 @@ class javaToPythonListener(ParseTreeListener):
         if (ruleName == "methodCall"):
             level = self.convertMethodCall(ctx, level)
 
-        print(ruleName)
         if (ruleName == "identifierDec"):
             level = self.convertIdentifierDec(ctx, level)
+
         if (ruleName == "incrementOperation"):
             level = self.convertIncrementOperation(ctx, level)
-
-
-        
-        # if (ruleName == "statement"):
-        #     self.convertedString += "statement\n"
-        # if (ruleName == "assignment"):
-        #     self.convertedString += "assignment\n"
 
         for i in range(ctx.getChildCount()):
             element = ctx.getChild(i)
@@ -165,8 +153,9 @@ class javaToPythonListener(ParseTreeListener):
 
     def enterStart(self, ctx):
         self.explore(ctx, 0,0)
-        print("\n\n-----------------------------------\nConversion result:")
+        print("-----------------------------------\nConversion result:")
         print(self.convertedString)
+        self.saveToFile()
 
 def main(argv):
     input_stream = FileStream(argv[1])
