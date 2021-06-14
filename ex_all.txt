@@ -23,6 +23,7 @@ while(-x>4){
 }
 
 string y="hshihdi";
+boolean falg = true;
 
 void printFib(int n, int b){
 	x = "liczyby fib";

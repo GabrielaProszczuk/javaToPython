@@ -52,10 +52,9 @@ condition: expression compare expression
 	| value
 	| minusOperator condition;
 
-statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON incr_for R_PAREN block;
+statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON oneArgumentExpression R_PAREN block;
 
 expression_for: expression compare expression;
-incr_for: ID INCR;
 
 statement_while: WHILE L_PAREN condition R_PAREN block;
 statement_return: RETURN value;
@@ -83,7 +82,6 @@ expression: L_PAREN expression R_PAREN
 	| FLOAT_VAL
 	| STRING_VAL
 	| CHAR_VAL
-	| BOOLEAN_VAL
 	| ID (L_BRACKET expression R_BRACKET)*
 	| oneArgumentExpression
 	| minusOperator expression

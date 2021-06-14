@@ -1,0 +1,25 @@
+if(!flag){
+	int x = 7;
+	string s = "5.0";
+	int p = 5;
+} else if (8 > 5) {
+	x++;
+} else {
+	y--;
+}
+
+
+for (int x = 0; i <= 4; i++) {
+	x++;
+	x = (5 + y) * 2;
+	fun(6, 2);
+}
+
+
+if (x < 5) {
+	frf(3, 2);
+} else if (!a) {
+	x = 7 - 5;
+} else {
+	x++;
+}
