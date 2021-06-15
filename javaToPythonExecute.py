@@ -7,7 +7,6 @@ from ErrorListener import ErrorListener
 
 class javaToPythonListener(ParseTreeListener):
     code = ""
-    indents = 0
     convertedString = ""
 
     def saveToFile(self, fileName):
@@ -136,8 +135,7 @@ class javaToPythonListener(ParseTreeListener):
         self.convertedString += self.getIntent(level) + ctx.ID().getText() + "(" + args + ")\n"
         return level
 
-    def explore(self, ctx, level, indents):
-    
+    def explore(self, ctx, level):
         ruleName = str(javaToPythonParser.ruleNames[ctx.getRuleIndex()])
 
         if (ruleName == "statement_condition"):
@@ -160,15 +158,18 @@ class javaToPythonListener(ParseTreeListener):
 
         if (ruleName == "incrementOperation"):
             level = self.convertIncrementOperation(ctx, level)
+        
+        if (ruleName == "decrementOperation"):
+            level = self.convertDecrementOperation(ctx, level)
 
         for i in range(ctx.getChildCount()):
             element = ctx.getChild(i)
             if (isinstance(element, RuleContext)):
-                self.explore(element, level, indents + 1)
+                self.explore(element, level)
        
 
     def enterStart(self, ctx):
-        self.explore(ctx, 0,0)
+        self.explore(ctx, 0)
 
        # print("Result:")
        # print(self.convertedString)

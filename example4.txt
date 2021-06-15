@@ -1,0 +1,12 @@
+int x = 6;
+int y = 7;
+string s;
+
+if (!(x == 6)) {
+    s = "tak";
+}
+
+while (x <= 6) {
+    x++;
+    y--;
+}
