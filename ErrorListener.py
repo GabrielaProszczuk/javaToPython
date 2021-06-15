@@ -11,4 +11,6 @@ class ErrorListener( ErrorListener ):
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         print("You gave a file with syntax mistake, try again!"
-        "        Line: " + str(line) + " Column: " + str(column))
+        "        Line: " + str(line))
+        # print("You gave a file with syntax mistake, try again!"
+        # "        [Error]: " + str(msg) + "Line: " + str(line))
