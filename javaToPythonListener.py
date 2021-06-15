@@ -125,12 +125,12 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by javaToPythonParser#cos.
-    def enterCos(self, ctx:javaToPythonParser.CosContext):
+    # Enter a parse tree produced by javaToPythonParser#condOp.
+    def enterCondOp(self, ctx:javaToPythonParser.CondOpContext):
         pass
 
-    # Exit a parse tree produced by javaToPythonParser#cos.
-    def exitCos(self, ctx:javaToPythonParser.CosContext):
+    # Exit a parse tree produced by javaToPythonParser#condOp.
+    def exitCondOp(self, ctx:javaToPythonParser.CondOpContext):
         pass
 
 
@@ -320,6 +320,15 @@ class javaToPythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by javaToPythonParser#methodType.
     def exitMethodType(self, ctx:javaToPythonParser.MethodTypeContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#boolean_val.
+    def enterBoolean_val(self, ctx:javaToPythonParser.Boolean_valContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#boolean_val.
+    def exitBoolean_val(self, ctx:javaToPythonParser.Boolean_valContext):
         pass
 
 

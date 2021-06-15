@@ -1,0 +1,10 @@
+int x = 7;
+int y = 6;
+string z;
+if(y > 5 && !(x+y==18)){
+    z = "if";
+}else if(y < 5 && x+y==18){
+    z = "elif";
+}else{
+    z = "else";
+}

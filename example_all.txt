@@ -1,0 +1,46 @@
+int x = 7;
+
+if(x == 6 &&  x<9){
+	int n = 7;
+	string o = "word";
+}
+
+boolean flag = true;
+for(int y=5; y<10; y++){
+	x = y;
+	if(!flag){
+		string u = "ma";
+	}
+}
+
+float s = 7.0;
+while(-x>4 && !(x+s==6)){
+	x++;
+	for(int y=5; y<10; y++){
+		x = y;
+		if(!flag){
+			int x = 7;
+			string p = "kota";
+		}
+	}
+}
+
+for (int i = 0; i < 10; i++) {
+    float t = 8.0;
+}
+
+string y="ion";
+
+int printFib(int n, int b){
+	string w = "liczyby fib";
+	if(n>=0 && n>9 && n<11){
+		printFib(6, 9);
+	}else if(n==0 || !(b+6==8)){
+		n=6;
+	}else{
+		string g="jestsuper";
+	}
+	return n;
+}
+
+printFib(6, 9);

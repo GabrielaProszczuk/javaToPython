@@ -43,18 +43,20 @@ compare: GT
 
 
 
-conditions: condition (cos condition)*;
+conditions: condition (condOp condition)*;
 condition: expression compare expression
 	| NOT toNot
-	| NOT toNot
-	| NOT toNot
-	| value
+	| boolean_val
+	| ID
 	| minusOperator condition;
-cos: orOperation
+
+condOp: orOperation
 	| andOperation;
-toNot: condition
-	| expression
-	| value;
+
+toNot: L_PAREN condition R_PAREN
+    | boolean_val
+    | ID;
+
 orOperation: OR;
 andOperation: AND;	
 
@@ -84,10 +86,7 @@ decrementOperation: DECR ID | ID DECR;
 notOperation: NOT ID;
 
 expression: L_PAREN expression R_PAREN
-	| INT_VAL
-	| FLOAT_VAL
-	| STRING_VAL
-	| CHAR_VAL
+	| value
 	| ID (L_BRACKET expression R_BRACKET)*
 	| oneArgumentExpression
 	| minusOperator expression
@@ -98,7 +97,7 @@ value: 	INT_VAL
 	| FLOAT_VAL 
 	| STRING_VAL
 	| CHAR_VAL
-	| BOOLEAN_VAL
+	| boolean_val
 	| ID;
 
 identifierType: BOOLEAN
@@ -113,6 +112,11 @@ methodType:	BOOLEAN
 		| VOID
 		| STRING
 		| CHAR;
+
+boolean_val : TRUE | FALSE;
+
+
+
 
 WHITESPACE:         (' ' | '\t' | '\r' | '\n') -> skip ;
 PLUS		:	'+';
@@ -168,6 +172,7 @@ CHAR		:	'char';
 STRING		: 	'string';
 BOOLEAN		:	'boolean';
 
+
 TRUE		:    	'true';
 FALSE		:   	'false';
 
@@ -176,4 +181,3 @@ INT_VAL		: 	[0-9]+;
 FLOAT_VAL	:	[0-9]+'.'[0-9]+;
 STRING_VAL :  	 '"' (~["])* '"';
 CHAR_VAL	:	  '\'' (~[']) '\'';
-BOOLEAN_VAL : (TRUE|FALSE);

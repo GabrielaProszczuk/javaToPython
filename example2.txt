@@ -1,0 +1,6 @@
+int f(int x, int y){
+    int n = x+y;
+    return n;
+}
+
+f(5,6);
