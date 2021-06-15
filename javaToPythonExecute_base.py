@@ -3,17 +3,12 @@ from antlr4 import *
 from antlr4.tree.Trees import Trees
 from javaToPythonLexer import javaToPythonLexer
 from javaToPythonParser import javaToPythonParser
-from ErrorListener import ErrorListener
+ 
 
 class javaToPythonListener(ParseTreeListener):
     code = ""
     indents = 0
     convertedString = ""
-
-    def saveToFile(self, fileName):
-        f = open(fileName, "w")
-        f.write(self.convertedString)
-        f.close()
 
     def getTabs(self, level):
         tabs = ""
@@ -22,6 +17,8 @@ class javaToPythonListener(ParseTreeListener):
         return tabs
 
     def convertConditions(self, ctx):
+        # conditions = ""
+        # print(ctx.condition()[0].getText())
         if (ctx.condition()[0].NOT()):
             conditions = "not " + ctx.condition()[0].toNot().getText()
         else:
@@ -39,15 +36,22 @@ class javaToPythonListener(ParseTreeListener):
         self.convertedString += conditions
         
     def convertIfStatement(self, ctx, level):
+        # condition = ctx.conditions().getText()
+        # self.convertedString += self.getTabs(level) + "if (" + condition + "):\n"
         self.convertedString += self.getTabs(level) + "if (" 
         self.convertConditions(ctx.getChild(2))
         self.convertedString += "):\n"
+
         return level + 1
 
     def convertIfElseStatement(self, ctx, level):
+        # condition = ctx.conditions().getText()
+        # self.convertedString += self.getTabs(level) + "elif (" + condition + "):\n"
+        # return level + 1
         self.convertedString += self.getTabs(level) + "elif (" 
         self.convertConditions(ctx.getChild(2))
         self.convertedString += "):\n"
+
         return level + 1
 
     def convertElseStatement(self, ctx, level):
@@ -65,16 +69,22 @@ class javaToPythonListener(ParseTreeListener):
             level = self.convertElseStatement(childCtx, level)
         return level
 
+
     def convertMethodDeclaration(self, ctx, level):
+        # Extracting method name
         methodName = ctx.ID().getText()
 
+        # Extracting parameters
         params = ""
         if (len(ctx.params().ID())):
             params = ctx.params().ID()[0].getText()
             for i in range (1, len(ctx.params().ID())):
                 params += ", " + ctx.params().ID()[i].getText()
 
+        # Create "type methodName("
         self.convertedString += "def " + methodName + "(" + params + "):\n"
+
+        # Increase level of indendation
         return level + 1
 
     def convertForStatement(self, ctx, level):
@@ -98,12 +108,18 @@ class javaToPythonListener(ParseTreeListener):
 
         forConditionString = letter + " in range (" + str(rangeNumbers) + ")"
         self.convertedString += self.getTabs(level) + "for " + forConditionString + ":\n"
+
+        # Increase level of indendation
         return level + 1
 
     def convertWhileStatement(self, ctx, level):
+        # self.convertedString += self.getTabs(level) + "while (" + ctx.condition().getText() + "):\n"
+
         self.convertedString += self.getTabs(level) + "while ("
         self.convertConditions(ctx.getChild(2))
         self.convertedString += "):\n"
+
+
         return level + 1
 
     def convertIdentifierDec(self, ctx, level):
@@ -132,7 +148,6 @@ class javaToPythonListener(ParseTreeListener):
         return level
 
     def explore(self, ctx, level, indents):
-    
         ruleName = str(javaToPythonParser.ruleNames[ctx.getRuleIndex()])
 
         # for i in range(indents):
@@ -154,8 +169,6 @@ class javaToPythonListener(ParseTreeListener):
             level = self.convertMethodCall(ctx, level)
 
         if (ruleName == "identifierDec"):
-            #("-----------------")
-            #print(ctx.getText())
             level = self.convertIdentifierDec(ctx, level)
 
         if (ruleName == "incrementOperation"):
@@ -165,36 +178,22 @@ class javaToPythonListener(ParseTreeListener):
             element = ctx.getChild(i)
             if (isinstance(element, RuleContext)):
                 self.explore(element, level, indents + 1)
-       
+
 
     def enterStart(self, ctx):
         self.explore(ctx, 0,0)
-
-       # print("-----------------------------------\nConversion result:")
-       # print(self.convertedString)
-
+        print("-----------------------------------\nConversion result:")
+        print(self.convertedString)
 
 def main(argv):
-
-        input_stream = FileStream(argv[1])
-        lexer = javaToPythonLexer(input_stream)
-        lexer.removeErrorListeners()
-        lexer._listeners = [ ErrorListener() ]
-        stream = CommonTokenStream(lexer)
-        parser = javaToPythonParser(stream)
-        parser.removeErrorListeners()
-        parser.addErrorListener( ErrorListener() )
-        lexer._listeners = [ ErrorListener() ]
-        tree = parser.start()
-        printer = javaToPythonListener()
-        walker = ParseTreeWalker()
-        try:
-            walker.walk(printer, tree)
-        except:
-            print("Can't proccess this file!")
-        printer.saveToFile(argv[2])
-        
+    input_stream = FileStream(argv[1])
+    lexer = javaToPythonLexer(input_stream)
+    stream = CommonTokenStream(lexer)
+    parser = javaToPythonParser(stream)
+    tree = parser.start()
+    printer = javaToPythonListener()
+    walker = ParseTreeWalker()
+    walker.walk(printer, tree)
 
 if __name__ == '__main__':
     main(sys.argv)
-
