@@ -16,7 +16,8 @@ operacjeMatematyczne: identifierDec
 	| decrementOperation SEMICOLON;
 
 identifierDec:
-	(identifierType)? ID (ASSIGN identifierInitializer)? ;
+	(identifierType) ID (ASSIGN identifierInitializer)?
+	| (identifierType)? ID (ASSIGN identifierInitializer) ;
 
 identifierInitializer:
 	minusOperator? expression;

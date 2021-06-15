@@ -137,7 +137,6 @@ class javaToPythonListener(ParseTreeListener):
 
     def explore(self, ctx, level):
         ruleName = str(javaToPythonParser.ruleNames[ctx.getRuleIndex()])
-
         if (ruleName == "statement_condition"):
             level = self.convertConditionStatement(ctx, level)
 
