@@ -1,0 +1,5 @@
+if (x < 5) {
+	while(2 != 3 %% x == 6) {
+		string s = "jestFajnie"
+	}
+}
