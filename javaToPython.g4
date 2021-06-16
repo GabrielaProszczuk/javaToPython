@@ -70,7 +70,7 @@ toNot: L_PAREN condition R_PAREN
 orOperation: OR;
 andOperation: AND;	
 
-statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON oneArgumentExpression R_PAREN block;
+statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON oneArgumentExpressionFor R_PAREN block;
 
 expression_for: expression compare expression;
 
@@ -88,6 +88,10 @@ methodCall: 	ID L_PAREN expression (COMMA expression)* R_PAREN;
 
 	
 minusOperator: MINUS;
+
+oneArgumentExpressionFor: incrementOperationFor | decrementOperationFor;
+incrementOperationFor: INCR ID | ID INCR;
+decrementOperationFor: DECR ID | ID DECR;
 
 oneArgumentExpression: incrementOperation | decrementOperation | notOperation;
 twoArgumentExpression: MUL | DIV | PLUS | MOD | GT | LT | EQ | GT_EQ | LT_EQ;

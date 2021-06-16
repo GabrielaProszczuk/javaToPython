@@ -278,6 +278,33 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by javaToPythonParser#oneArgumentExpressionFor.
+    def enterOneArgumentExpressionFor(self, ctx:javaToPythonParser.OneArgumentExpressionForContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#oneArgumentExpressionFor.
+    def exitOneArgumentExpressionFor(self, ctx:javaToPythonParser.OneArgumentExpressionForContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#incrementOperationFor.
+    def enterIncrementOperationFor(self, ctx:javaToPythonParser.IncrementOperationForContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#incrementOperationFor.
+    def exitIncrementOperationFor(self, ctx:javaToPythonParser.IncrementOperationForContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#decrementOperationFor.
+    def enterDecrementOperationFor(self, ctx:javaToPythonParser.DecrementOperationForContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#decrementOperationFor.
+    def exitDecrementOperationFor(self, ctx:javaToPythonParser.DecrementOperationForContext):
+        pass
+
+
     # Enter a parse tree produced by javaToPythonParser#oneArgumentExpression.
     def enterOneArgumentExpression(self, ctx:javaToPythonParser.OneArgumentExpressionContext):
         pass
