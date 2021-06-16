@@ -6,10 +6,17 @@ statement: identifierDec SEMICOLON
 	| statement_condition
 	| statement_for
 	| statement_while
-	| statement_return SEMICOLON
 	| methodDec
 	| methodCall SEMICOLON
-	| operacjeMatematyczne;
+	| operacjeMatematyczne
+	| statement_print SEMICOLON
+	| statement_println SEMICOLON;
+
+statement_print : PRINT L_PAREN inPrint R_PAREN;
+
+statement_println : PRINTLN L_PAREN inPrint R_PAREN;
+
+inPrint: value (twoArgumentExpression value)*;
 	
 operacjeMatematyczne: identifierDec
 	| incrementOperation SEMICOLON
@@ -17,7 +24,7 @@ operacjeMatematyczne: identifierDec
 
 identifierDec:
 	(identifierType) ID (ASSIGN identifierInitializer)?
-	| (identifierType)? ID (ASSIGN identifierInitializer) ;
+	| (identifierType)? ID (ASSIGN identifierInitializer);
 
 identifierInitializer:
 	minusOperator? expression;
@@ -34,6 +41,8 @@ statement_elseif: ELSEIF L_PAREN conditions R_PAREN block;
 statement_else: ELSE block;
 
 block: 	L_BRACE statement* R_BRACE;
+
+block_function: L_BRACE statement* (statement_return SEMICOLON)? R_BRACE;
 
 compare: GT	
 	| LT	
@@ -66,12 +75,12 @@ statement_for:	FOR L_PAREN assignment SEMICOLON expression_for SEMICOLON oneArgu
 expression_for: expression compare expression;
 
 statement_while: WHILE L_PAREN conditions R_PAREN block;
-statement_return: RETURN value;
+statement_return: RETURN expression;
 
 assignment: (identifierType)? ID ASSIGN identifierInitializer ;
 
 
-methodDec: 	methodType ID L_PAREN params? R_PAREN block;
+methodDec: 	methodType ID L_PAREN params? R_PAREN block_function;
 
 params:		identifierType ID (COMMA identifierType ID)*;
 
@@ -182,3 +191,5 @@ INT_VAL		: 	[0-9]+;
 FLOAT_VAL	:	[0-9]+'.'[0-9]+;
 STRING_VAL :  	 '"' (~["])* '"';
 CHAR_VAL	:	  '\'' (~[']) '\'';
+PRINT : 'System.out.print';
+PRINTLN : 'System.out.println';

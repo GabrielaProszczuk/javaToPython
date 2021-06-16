@@ -26,6 +26,33 @@ class javaToPythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by javaToPythonParser#statement_print.
+    def enterStatement_print(self, ctx:javaToPythonParser.Statement_printContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#statement_print.
+    def exitStatement_print(self, ctx:javaToPythonParser.Statement_printContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#statement_println.
+    def enterStatement_println(self, ctx:javaToPythonParser.Statement_printlnContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#statement_println.
+    def exitStatement_println(self, ctx:javaToPythonParser.Statement_printlnContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#inPrint.
+    def enterInPrint(self, ctx:javaToPythonParser.InPrintContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#inPrint.
+    def exitInPrint(self, ctx:javaToPythonParser.InPrintContext):
+        pass
+
+
     # Enter a parse tree produced by javaToPythonParser#operacjeMatematyczne.
     def enterOperacjeMatematyczne(self, ctx:javaToPythonParser.OperacjeMatematyczneContext):
         pass
@@ -95,6 +122,15 @@ class javaToPythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by javaToPythonParser#block.
     def exitBlock(self, ctx:javaToPythonParser.BlockContext):
+        pass
+
+
+    # Enter a parse tree produced by javaToPythonParser#block_function.
+    def enterBlock_function(self, ctx:javaToPythonParser.Block_functionContext):
+        pass
+
+    # Exit a parse tree produced by javaToPythonParser#block_function.
+    def exitBlock_function(self, ctx:javaToPythonParser.Block_functionContext):
         pass
 
 

@@ -135,6 +135,42 @@ class javaToPythonListener(ParseTreeListener):
         self.convertedString += self.getIntent(level) + ctx.ID().getText() + "(" + args + ")\n"
         return level
 
+    def convertReturn(self, ctx, level):
+        # print("--------------------")
+        self.convertedString += self.getIntent(level) + "return " + ctx.expression().getText() + "\n"
+        # print(ctx.expression().getText())
+        return level
+
+    def convertStatementPrint(self, ctx, level):
+        text = ""
+        if (ctx.inPrint().value()[0].STRING_VAL()):
+            text += ctx.inPrint().value()[0].getText()
+        else:
+            text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+
+        for i in range (1, len(ctx.inPrint().value())):
+            if (ctx.inPrint().value()[i].STRING_VAL()):
+                text += " + " + ctx.inPrint().value()[i].getText()
+            else:
+                text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+        self.convertedString += self.getIntent(level) + "print(" + text + ", end=\"\")\n"
+        return level
+
+    def convertStatementPrintln(self, ctx, level):
+        text = ""
+        if (ctx.inPrint().value()[0].STRING_VAL()):
+            text += ctx.inPrint().value()[0].getText()
+        else:
+            text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+
+        for i in range (1, len(ctx.inPrint().value())):
+            if (ctx.inPrint().value()[i].STRING_VAL()):
+                text += " + " + ctx.inPrint().value()[i].getText()
+            else:
+                text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+        self.convertedString += self.getIntent(level) + "print(" + text + ")\n"
+        return level
+
     def explore(self, ctx, level):
         ruleName = str(javaToPythonParser.ruleNames[ctx.getRuleIndex()])
         if (ruleName == "statement_condition"):
@@ -160,6 +196,15 @@ class javaToPythonListener(ParseTreeListener):
         
         if (ruleName == "decrementOperation"):
             level = self.convertDecrementOperation(ctx, level)
+
+        if (ruleName == "statement_return"):
+            level = self.convertReturn(ctx, level)
+        
+        if (ruleName == "statement_print"):
+            level = self.convertStatementPrint(ctx, level)
+
+        if (ruleName == "statement_println"):
+            level = self.convertStatementPrintln(ctx, level)
 
         for i in range(ctx.getChildCount()):
             element = ctx.getChild(i)
