@@ -1,3 +1,5 @@
 print("a", end="")
 print("a" + str(3))
+print(6 + 3)
 print(str(5) + "a" + str(3), end="")
+print(5 + 3, end="")

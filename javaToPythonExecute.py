@@ -143,31 +143,57 @@ class javaToPythonListener(ParseTreeListener):
 
     def convertStatementPrint(self, ctx, level):
         text = ""
+        isString = False
+
+        for i in range(len(ctx.inPrint().value())):
+            if(ctx.inPrint().value()[i].STRING_VAL()):
+                isString = True
+        
         if (ctx.inPrint().value()[0].STRING_VAL()):
             text += ctx.inPrint().value()[0].getText()
         else:
-            text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+            if(isString):
+                text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+            else:
+                text += ctx.inPrint().value()[0].getText() 
 
         for i in range (1, len(ctx.inPrint().value())):
             if (ctx.inPrint().value()[i].STRING_VAL()):
                 text += " + " + ctx.inPrint().value()[i].getText()
             else:
-                text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+                if(isString):
+                    text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+                else:
+                    text += " + " + ctx.inPrint().value()[i].getText()
+
         self.convertedString += self.getIntent(level) + "print(" + text + ", end=\"\")\n"
         return level
 
     def convertStatementPrintln(self, ctx, level):
         text = ""
+        isString = False
+
+        for i in range(len(ctx.inPrint().value())):
+            if(ctx.inPrint().value()[i].STRING_VAL()):
+                isString = True
+        
         if (ctx.inPrint().value()[0].STRING_VAL()):
             text += ctx.inPrint().value()[0].getText()
         else:
-            text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+            if(isString):
+                text += "str(" + ctx.inPrint().value()[0].getText() + ")"
+            else:
+                text += ctx.inPrint().value()[0].getText() 
 
         for i in range (1, len(ctx.inPrint().value())):
             if (ctx.inPrint().value()[i].STRING_VAL()):
                 text += " + " + ctx.inPrint().value()[i].getText()
             else:
-                text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+                if(isString):
+                    text += " + str(" + ctx.inPrint().value()[i].getText() + ")"
+                else:
+                    text += " + " + ctx.inPrint().value()[i].getText()
+
         self.convertedString += self.getIntent(level) + "print(" + text + ")\n"
         return level
 
